@@ -1,0 +1,25 @@
+# An early-riser weekday plan. Change the times and words to fit your life.
+# Make the calendar file:   python3 dayblocks.py ics examples/early-riser.txt --alarm 5
+
+days: weekdays
+05:00 05:15 Rise | Water first. Clothes laid out the night before.
+05:15 05:35 Move | Sweat a little: walk, run, or bodyweight.
+05:35 05:55 Reflect | Plan the day. Write the three things that matter today.
+05:55 06:15 Grow | Read or study something that makes you better.
+06:15 07:00 Family and breakfast
+08:00 11:00 Deep work | One hard thing. Phone in another room.
+11:00 11:30 Lunch
+11:30 13:30 Shallow work | Email, calls, errands.
+17:00 18:30 Family time
+21:00 21:30 Wind down | Screens off. Tomorrow's three things on paper.
+21:30 05:00 Sleep
+
+days: sat sun
+07:00 08:00 Long walk
+
+days: sat
+22:00 06:30 Sleep | Sleep in a little.
+
+days: sun
+09:00 10:00 Week review | What worked, what didn't, next week's plan.
+21:30 05:00 Sleep | Early night before Monday.
