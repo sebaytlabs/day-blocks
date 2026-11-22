@@ -2,7 +2,7 @@
 
 Write your ideal day once, as plain text. Day Blocks turns it into repeating events for any calendar, warns you where blocks collide, and tells you what you should be doing right now.
 
-No account and no app to keep open. Just a text file and the calendar you already use.
+No account. Just a text file, a small app, and the calendar you already use.
 
 ```
 days: weekdays
@@ -37,7 +37,20 @@ Next: Sleep at 21:30
 If two blocks collide, `check` names them and the line numbers, including a late night that runs into the next morning:
 `Monday: 'Sleep' (line 4) runs into 'Rise' (line 2) by 15 min`.
 
-## Use it
+## The app
+
+```
+python3 day_blocks_app.py
+```
+
+The app has three pages:
+- **Today:** what your plan says to do right now, with its note, and the rest of today. It refreshes itself, so you can leave it open.
+- **My plan:** write and edit the plan, with a guide beside it. **Save and check** warns about blocks that collide and shows your hours per week.
+- **Calendar:** pick a start date and a reminder, then make the `.ics` file.
+
+Your plan is kept in `~/.day-blocks/plan.txt`.
+
+## From the command line
 
 You need Python 3.9 or newer, and nothing else.
 

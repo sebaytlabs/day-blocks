@@ -1,5 +1,5 @@
 # An early-riser weekday plan. Change the times and words to fit your life.
-# Make the calendar file:   python3 dayblocks.py ics examples/early-riser.txt --alarm 5
+# Press Save and check. Then make the calendar file on the Calendar page.
 
 days: weekdays
 05:00 05:15 Rise | Water first. Clothes laid out the night before.
