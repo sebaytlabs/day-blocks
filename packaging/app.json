@@ -1,0 +1,11 @@
+{
+  "name": "Day Blocks",
+  "id": "day-blocks",
+  "entry": "day_blocks_app.py",
+  "comment": "Write your ideal day once; get it in any calendar.",
+  "categories": "Office;Calendar;",
+  "data": ["examples"],
+  "check": ["dayblocks"],
+  "tests": ["{python} dayblocks.py --selftest"],
+  "downloads": ["windows", "mac", "linux"]
+}

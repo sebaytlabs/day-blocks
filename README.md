@@ -60,9 +60,22 @@ Three ideas from research sit behind it:
 
 Time blocking as a method has little direct research of its own. We don't claim more than that the pieces above are sound.
 
+## Download
+
+Free, no account. Get the file for your computer from the [latest release](https://github.com/sebaytlabs/day-blocks/releases/latest):
+
+| Your computer | File | Then |
+|---|---|---|
+| Windows 10 or 11 | `DayBlocks-<version>-windows-setup.exe` | Run it. If Windows says *Windows protected your PC*, click **More info → Run anyway** (once). |
+| Mac with Apple chip (M1 and later) | `DayBlocks-<version>-mac-ARM64.dmg` | Open it and drag Day Blocks to Applications. The first time, macOS says it can't check the app: open **System Settings → Privacy & Security**, scroll down and click **Open Anyway** (once). |
+| Mac with Intel chip | `DayBlocks-<version>-mac-X64.dmg` | Same as above. |
+| Linux | `DayBlocks-<version>-x86_64.AppImage` | Make it runnable (right-click → Properties → *Allow executing*, or `chmod +x` it), then double-click it. |
+
+The apps aren't signed with a paid developer certificate yet, which is why Windows and macOS ask once.
+
 ## Start
 
-You need Python 3.9 or newer, and nothing else.
+To run it from source instead, you need Python 3.9 or newer, and nothing else.
 
 ```
 git clone https://github.com/sebaytlabs/day-blocks

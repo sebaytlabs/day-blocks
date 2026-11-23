@@ -13,7 +13,7 @@ from pathlib import Path
 from tkinter import filedialog, messagebox
 
 import dayblocks as db
-from appkit import BG, DIM, FG, FONT, LINE, PANEL, App, Page, open_path
+from appkit import BG, DIM, FG, FONT, LINE, PANEL, App, Page, handle_cli, open_path
 
 ACCENT = "#e8590c"
 HERE = Path(__file__).resolve().parent
@@ -272,4 +272,5 @@ def main():
 
 
 if __name__ == "__main__":
+    handle_cli()
     main()
