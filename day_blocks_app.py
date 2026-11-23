@@ -71,7 +71,7 @@ class TodayPage(Page):
             self.button(self.row(), "Fix it in My plan", lambda: self.app.show("plan")).pack(side="left")
             return
         cur, nxt = db.on(blocks, now)
-        c = self.card()
+        c = self.now_card = self.card()
         tk.Label(c, text="RIGHT NOW", bg=PANEL, fg=DIM, font=(FONT, 10, "bold"), anchor="w").pack(fill="x", padx=18,
                                                                                                pady=(14, 0))
         tk.Label(c, text=cur.title if cur else "Free time", bg=PANEL, fg=self.app.accent, font=(FONT, 28, "bold"),
@@ -85,9 +85,11 @@ class TodayPage(Page):
             tk.Label(c, text=f"Next: {nxt.title} at {nxt.start:%H:%M}", bg=PANEL, fg=DIM, font=(FONT, 12),
                      anchor="w").pack(fill="x", padx=18, pady=(6, 14))
         self.text("The rest of today", 13, bold=True, pady=(14, 4))
+        self.rest = tk.Frame(self.body, bg=BG)
+        self.rest.pack(fill="x")
         for b in todays(blocks, now.date()):
             is_now = b is cur
-            r = tk.Frame(self.body, bg=self.app.accent if is_now else BG)
+            r = tk.Frame(self.rest, bg=self.app.accent if is_now else BG)
             r.pack(fill="x", pady=1)
             fg = "white" if is_now else FG
             tk.Label(r, text=f"{b.start:%H:%M}–{b.end:%H:%M}", bg=r["bg"], fg=fg, font=("Monospace", 11),
@@ -117,14 +119,15 @@ class PlanPage(Page):
         self.box.insert("1.0", load_plan())
         r = tk.Frame(left, bg=BG)
         r.pack(fill="x", pady=8)
-        self.button(r, "Save and check", self.save).pack(side="left")
+        self.save_b = self.button(r, "Save and check", self.save)
+        self.save_b.pack(side="left")
         self.button(r, "Start over from the example", self.reset, primary=False).pack(side="left", padx=8)
         right = tk.Frame(split, bg=BG, width=330)
         left.pack_forget()   # the guide claims its width first, the editor takes the rest
         right.pack(side="right", fill="y", padx=(14, 0))
         right.pack_propagate(False)
         left.pack(side="left", fill="both", expand=True)
-        guide = tk.Frame(right, bg=PANEL, highlightthickness=1, highlightbackground=LINE)
+        guide = self.guide = tk.Frame(right, bg=PANEL, highlightthickness=1, highlightbackground=LINE)
         guide.pack(fill="x")
         for t, s in (("How to write it", True), ("days: weekdays", False), ("05:00 05:20 Rise | Water first", False),
                      ("09:00 12:00 Deep work", False), ("21:30 05:00 Sleep", False), ("", True),
@@ -181,7 +184,8 @@ class CalendarPage(Page):
             tk.Label(r, text=label, bg=BG, fg=FG, font=(FONT, 11), width=12, anchor="w").pack(side="left")
             tk.Entry(r, textvariable=var, font=(FONT, 11), relief="solid", bd=1, width=14).pack(side="left", ipady=4)
             tk.Label(r, text=note, bg=BG, fg=DIM, font=(FONT, 10)).pack(side="left", padx=10)
-        self.button(self.row(pady=14), "Make calendar file", self.make).pack(side="left")
+        self.make_b = self.button(self.row(pady=14), "Make calendar file", self.make)
+        self.make_b.pack(side="left")
         self.done = self.text("", 12)
 
     def make(self):
@@ -207,6 +211,55 @@ class CalendarPage(Page):
         self.button(self.row(), "Show the file", lambda: open_path(Path(out).parent), primary=False).pack(side="left")
 
 
+def tutorial(app):
+    page = app.page
+    plan_text = lambda: page("plan").box.get("1.0", "end")
+    return [
+        {"title": "Welcome to Day Blocks", "target": lambda: app.tour_button,
+         "text": "Day Blocks keeps your ideal day in one small text file. From that file it tells you what to do "
+                 "right now, warns you when two blocks collide, and puts the whole week into the calendar you "
+                 "already use.\n\nThis tutorial takes about three minutes. At each step you do one real thing.",
+         "do": "read this, then click Next. The Tutorial button up here runs it again any time."},
+        {"title": "Today: what to do right now", "page": "today", "target": lambda: page("today").now_card,
+         "text": "This card is the block your plan says you should be in right now, with its note and what comes "
+                 "next. Leave this page open and it keeps up by itself.",
+         "do": "read what your plan says for right now, then click Next."},
+        {"title": "The rest of today", "page": "today", "target": lambda: page("today").rest,
+         "text": "Every block for today, in order. The one you're in is colored.",
+         "do": "click Next."},
+        {"title": "Your plan, in plain words", "page": "plan", "target": lambda: page("plan").box,
+         "text": "This is the whole plan. It starts as an example so you can see the format. Each line is one "
+                 "block: start, end, a name, and after | a note. 'days:' lines say which days the blocks below "
+                 "are for.",
+         "do": "make it yours: change a time or a name, or add a line like  12:00 12:30 Lunch  under a days: line.",
+         "start": plan_text, "check": lambda old: plan_text() != old},
+        {"title": "The guide", "page": "plan", "target": lambda: page("plan").guide,
+         "text": "Forget the format? It's always here beside the plan.", "do": "click Next."},
+        {"title": "Save and check", "page": "plan", "target": lambda: page("plan").save_b,
+         "text": "Saving checks the plan too. It names any two blocks that overlap (even a late night that runs "
+                 "into the next morning) and shows your hours per week for each block. Most people are surprised "
+                 "by where the hours go.",
+         "do": "click Save and check.",
+         "start": lambda: page("plan").result.cget("text"),
+         "check": lambda old: PLAN.exists() and PLAN.read_text(encoding="utf-8").strip() == plan_text().strip()
+         and page("plan").result.cget("text") not in ("", old)},
+        {"title": "Today follows your plan", "page": "today", "target": lambda: page("today").rest,
+         "text": "The change you just saved is already here. Nothing else to keep in sync.", "do": "click Next."},
+        {"title": "Put it in your calendar", "page": "calendar", "target": lambda: page("calendar").make_b,
+         "text": "This makes one .ics file with every block as a repeating event. Google, Apple, Outlook, "
+                 "Fastmail and Thunderbird all import it. Import it into a calendar of its own, so you can switch "
+                 "the whole plan off in one click.",
+         "do": "click Make calendar file and save it anywhere (you don't have to import it yet).",
+         "start": lambda: page("calendar").done.cget("text"),
+         "check": lambda old: page("calendar").done.cget("text") not in ("", old)},
+        {"title": "You're ready", "target": lambda: app.tour_button,
+         "text": "That's all of it: write the plan, save and check it, glance at Today, and put it in your calendar. "
+                 "Changed your mind? Edit, save, make a new file, delete the old calendar and import the new one.\n\n"
+                 "Press F1 on any page for help with that page.",
+         "do": "click Done."},
+    ]
+
+
 def main():
     app = App("Day Blocks", "Your ideal day, in your calendar.", ACCENT, ABOUT, class_name="DayBlocks")
     app.add_page("today", "Today", TodayPage)
@@ -214,6 +267,7 @@ def main():
     app.add_page("calendar", "Calendar", CalendarPage)
     if (HERE / "icon.png").exists():
         app.iconphoto(True, tk.PhotoImage(file=str(HERE / "icon.png")))
+    app.set_tutorial(lambda: tutorial(app), HOME / "settings.json")
     app.run("today")
 
 
