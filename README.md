@@ -160,11 +160,11 @@ Changed your plan? Delete that calendar and import the new file. Because the blo
 
 | Line | Meaning |
 |---|---|
-| `days: weekdays` | the blocks below repeat Monday to Friday. Also `weekends`, `every day`, or a list like `mon wed fri` |
+| `days: weekdays` | the blocks below repeat Monday to Friday. Also `weekends`, `every day` (or `daily`), or a list like `mon wed fri` |
 | `05:00 05:15 Rise` | a block from 5:00 to 5:15 called Rise |
 | `... Rise \| Water first.` | everything after `\|` is the note inside the event |
 | `21:30 05:00 Sleep` | blocks can run past midnight |
-| `# ...` | a comment |
+| `# ...` | a comment, from the `#` to the end of the line (so leave `#` out of titles and notes) |
 
 ### Options for `ics`
 

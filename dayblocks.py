@@ -299,6 +299,10 @@ def main(argv):
         start = dt.date.fromisoformat(opt("--start", dt.date.today().isoformat()))
         until = opt("--until")
         alarm = opt("--alarm")
+        if alarm and (not alarm.isdigit()):
+            sys.exit("--alarm is how many minutes before each block: 0 or more")
+        if until and dt.date.fromisoformat(until) < start:
+            sys.exit("--until is before --start")
         out = opt("--out", path.rsplit(".", 1)[0] + ".ics")
         with open(out, "w", encoding="utf-8", newline="") as f:
             f.write(ics(blocks, start, dt.date.fromisoformat(until) if until else None,
