@@ -1,0 +1,33 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 512 512" width="512" height="512">
+  <title>Day Blocks</title>
+  <defs>
+    <linearGradient id="bg" x1="0" y1="0" x2="0" y2="1">
+      <stop offset="0" stop-color="#ec7637"/>
+      <stop offset="1" stop-color="#b44509"/>
+    </linearGradient>
+    <linearGradient id="gloss" x1="0" y1="0" x2="0" y2="1">
+      <stop offset="0" stop-color="#ffffff" stop-opacity="0.22"/>
+      <stop offset="1" stop-color="#ffffff" stop-opacity="0"/>
+    </linearGradient>
+    <filter id="drop" x="-20%" y="-20%" width="140%" height="140%">
+      <feDropShadow dx="0" dy="6" stdDeviation="8" flood-color="#000000" flood-opacity="0.25"/>
+    </filter>
+  </defs>
+  <rect x="24" y="24" width="464" height="464" rx="108" fill="url(#bg)"/>
+  <rect x="24" y="24" width="464" height="232" rx="108" fill="url(#gloss)"/>
+  <rect x="25.5" y="25.5" width="461" height="461" rx="106.5" fill="none" stroke="#ffffff" stroke-opacity="0.18" stroke-width="3"/>
+  <g filter="url(#drop)">
+
+    <path d="M132 104 L 132 408" stroke="#ffffff" stroke-opacity="0.75" stroke-width="10" stroke-linecap="round"/>
+    <g fill="#ffffff"><circle cx="132" cy="128" r="13"/><circle cx="132" cy="216" r="13"/><circle cx="132" cy="344" r="13"/></g>
+    <rect x="170" y="100" width="226" height="68" rx="18" fill="#ffffff"/>
+    <rect x="170" y="184" width="196" height="136" rx="18" fill="#ffffff" fill-opacity="0.82"/>
+    <rect x="170" y="336" width="226" height="68" rx="18" fill="#ffffff"/>
+    <g stroke="#f19b6d" stroke-width="10" stroke-linecap="round">
+      <path d="M198 134 L 300 134"/><path d="M198 218 L 330 218"/><path d="M198 250 L 290 250"/><path d="M198 370 L 270 370"/>
+    </g>
+    <path d="M108 270 L 412 270" stroke="#ffd43b" stroke-width="10" stroke-linecap="round"/>
+    <circle cx="412" cy="270" r="18" fill="#ffd43b"/>
+
+  </g>
+</svg>

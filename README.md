@@ -1,3 +1,5 @@
+<img src="icon.svg" alt="" width="112" align="right">
+
 # Day Blocks
 
 **Write your ideal day once, in plain words. See it in your calendar, and see what to do right now.**
