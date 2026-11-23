@@ -93,7 +93,7 @@ The **▶ Tutorial** button runs it again any time, and **F1** explains any page
 
 The app has three pages:
 - **Today:** what your plan says to do right now, with its note, and the rest of today. It refreshes itself, so you can leave it open.
-- **My plan:** write and edit the plan, with a guide beside it. **Save and check** warns about blocks that collide and shows your hours per week.
+- **My plan:** write and edit the plan, with a guide beside it. **Save and check** warns about blocks that collide, lists unplanned gaps and shows your hours per week.
 - **Calendar:** pick a start date and a reminder, then make the `.ics` file.
 
 Your plan is kept in `~/.day-blocks/plan.txt` (set `DAY_BLOCKS_HOME` to keep it elsewhere).
@@ -134,6 +134,8 @@ Next: Sleep at 21:30
 
 If two blocks collide, `check` names them and the line numbers, including a late night that runs into the next morning:
 `Monday: 'Sleep' (line 4) runs into 'Rise' (line 2) by 15 min`.
+It also lists unplanned stretches of half an hour or more between blocks, grouped by day:
+`Weekdays: nothing planned 12:00-13:00`.
 
 ## From the command line
 
@@ -158,11 +160,11 @@ Changed your plan? Delete that calendar and import the new file. Because the blo
 
 | Line | Meaning |
 |---|---|
-| `days: weekdays` | the blocks below repeat Monday to Friday. Also `weekends`, `every day`, or a list like `mon wed fri` |
+| `days: weekdays` | the blocks below repeat Monday to Friday. Also `weekends`, `every day` (or `daily`), or a list like `mon wed fri` |
 | `05:00 05:15 Rise` | a block from 5:00 to 5:15 called Rise |
 | `... Rise \| Water first.` | everything after `\|` is the note inside the event |
 | `21:30 05:00 Sleep` | blocks can run past midnight |
-| `# ...` | a comment |
+| `# ...` | a comment, from the `#` to the end of the line (so leave `#` out of titles and notes) |
 
 ### Options for `ics`
 
@@ -200,7 +202,7 @@ Changed your plan? Delete that calendar and import the new file. Because the blo
 ## Limits, plainly
 
 - One plan for every week. Alternating weeks or shift work need two plan files.
-- The calendar file is a snapshot. Change the plan and you import a new file (delete the old calendar first).
+- The calendar file is a snapshot. Change the plan and you import a new file (delete the old calendar first). Each block keeps the same event ID in every file, so importing the same file twice won't double your events.
 - `now` uses your computer's clock and time zone.
 
 ## Sources
