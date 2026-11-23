@@ -70,7 +70,7 @@ class TodayPage(Page):
             self.text(f"Your plan has a mistake: {err}", 12, "#c92a2a")
             self.button(self.row(), "Fix it in My plan", lambda: self.app.show("plan")).pack(side="left")
             return
-        cur, nxt = db.on(blocks, now)
+        cur, _ = db.on(blocks, now)
         c = self.now_card = self.card()
         tk.Label(c, text="RIGHT NOW", bg=PANEL, fg=DIM, font=(FONT, 10, "bold"), anchor="w").pack(fill="x", padx=18,
                                                                                                pady=(14, 0))
@@ -81,8 +81,9 @@ class TodayPage(Page):
             sub += f"   ·   {cur.note}"
         tk.Label(c, text=sub, bg=PANEL, fg=FG, font=(FONT, 13), anchor="w", wraplength=740,
                  justify="left").pack(fill="x", padx=18)
-        if nxt:
-            tk.Label(c, text=f"Next: {nxt.title} at {nxt.start:%H:%M}", bg=PANEL, fg=DIM, font=(FONT, 12),
+        upcoming = db.next_block(blocks, now)
+        if upcoming:
+            tk.Label(c, text=f"Next: {upcoming[0].title} {db.when_text(upcoming[1], now)}", bg=PANEL, fg=DIM, font=(FONT, 12),
                      anchor="w").pack(fill="x", padx=18, pady=(6, 14))
         self.text("The rest of today", 13, bold=True, pady=(14, 4))
         self.rest = tk.Frame(self.body, bg=BG)
@@ -199,6 +200,12 @@ class CalendarPage(Page):
             alarm = int(self.alarm.get()) if self.alarm.get().strip() else None
         except ValueError:
             messagebox.showerror("Day Blocks", "Dates look like 2026-12-01, and the reminder is a number of minutes.")
+            return
+        if alarm is not None and alarm < 0:
+            messagebox.showerror("Day Blocks", "The reminder is how many minutes before each block: 0 or more.")
+            return
+        if until and until < start:
+            messagebox.showerror("Day Blocks", "It ends before it starts. Pick an end date after the start, or leave it empty.")
             return
         out = filedialog.asksaveasfilename(defaultextension=".ics", initialfile="my-day.ics",
                                            filetypes=[("Calendar file", "*.ics")])
