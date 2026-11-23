@@ -192,9 +192,9 @@ Changed your plan? Delete that calendar and import the new file. Because the blo
 
 ## Sources
 
-Buehler, R., Griffin, D., & Ross, M. (1994). Exploring the "planning fallacy". *Journal of Personality and Social Psychology*, 67(3), 366–381.
-Gollwitzer, P. M., & Sheeran, P. (2006). Implementation intentions and goal achievement: a meta-analysis. *Advances in Experimental Social Psychology*, 38, 69–119.
-Sheeran, P., Listrom, O., & Gollwitzer, P. M. (2024). The when and how of planning: meta-analysis of the scope and components of implementation intentions in 642 tests. *European Review of Social Psychology*. doi:10.1080/10463283.2024.2334563
+- Buehler, R., Griffin, D., & Ross, M. (1994). Exploring the "planning fallacy". *Journal of Personality and Social Psychology*, 67(3), 366–381.
+- Gollwitzer, P. M., & Sheeran, P. (2006). Implementation intentions and goal achievement: a meta-analysis. *Advances in Experimental Social Psychology*, 38, 69–119.
+- Sheeran, P., Listrom, O., & Gollwitzer, P. M. (2024). The when and how of planning: meta-analysis of the scope and components of implementation intentions in 642 tests. *European Review of Social Psychology*. doi:10.1080/10463283.2024.2334563
 
 ## Tests
 
